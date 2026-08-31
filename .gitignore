@@ -1,0 +1,9 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+.playwright-browsers/
+.env
+*.log
+.DS_Store

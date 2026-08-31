@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/floodfill.test.ts","./src/floodfill.ts","./src/main.tsx","./src/randomid.test.ts","./src/randomid.ts","./src/usegamesocket.ts","./src/usesoundeffects.ts","./src/components/drawingcanvas.tsx","./src/components/timer.tsx","./src/components/voicechannel.tsx","./vite.config.ts"],"version":"5.9.3"}
