@@ -614,14 +614,16 @@ export class GameService {
         const scored = calculateMapScore(target, guess);
         player.score += scored.points;
         player.roundPoints = scored.points;
-        return [{
-          playerId: player.id,
-          nickname: player.nickname,
-          position: 0,
-          points: scored.points,
-          guess,
-          distance: scored.distance,
-        }];
+        return [
+          {
+            playerId: player.id,
+            nickname: player.nickname,
+            position: 0,
+            points: scored.points,
+            guess,
+            distance: scored.distance,
+          },
+        ];
       })
       .sort((left, right) => right.points - left.points)
       .map((guess, index) => ({ ...guess, position: index + 1 }));
@@ -656,6 +658,7 @@ export class GameService {
       mapId: location.mapId,
       mapName: location.mapName,
       imageUrl: location.imageUrl,
+      clueImageUrl: location.clueImageUrl,
       view: location.view,
     };
   }

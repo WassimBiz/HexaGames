@@ -743,7 +743,9 @@
 .mapStage h2 {
   margin: 4px 0 8px;
   color: #f7f0dd;
-  font: clamp(2rem, 4vw, 3.8rem) Georgia, serif;
+  font:
+    clamp(2rem, 4vw, 3.8rem) Georgia,
+    serif;
 }
 .mapStage p {
   margin: 0;
@@ -753,10 +755,18 @@
   min-height: 500px;
   overflow: hidden;
   background-color: #0e1428;
-  background-repeat: no-repeat;
   border: 1px solid #3a4461;
   border-radius: 14px;
   box-shadow: inset 0 0 70px rgba(7, 11, 24, 0.36);
+}
+.mapClue > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  object-fit: cover;
+  object-position: center;
+  user-select: none;
 }
 .mapClue::after {
   content: '';
@@ -778,6 +788,18 @@
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+.mapClue > small {
+  position: absolute;
+  z-index: 1;
+  right: 12px;
+  bottom: 10px;
+  padding: 5px 8px;
+  color: #bac2d3;
+  background: rgba(8, 13, 28, 0.78);
+  border-radius: 999px;
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
 }
 .mapGuessPanel {
   display: flex;
@@ -1446,7 +1468,8 @@
   .mapStage > div:first-child {
     grid-column: auto;
   }
-  .mapClue {
+  .mapClue,
+  .mapClue > img {
     min-height: 420px;
   }
   .chatPanel {
@@ -1515,7 +1538,8 @@
   .mapPlayLayout .mapOdds {
     grid-column: 1 / -1;
   }
-  .mapClue {
+  .mapClue,
+  .mapClue > img {
     min-height: 360px;
   }
   .sidePanel {
@@ -1580,7 +1604,8 @@
   .mapStage {
     padding: 10px;
   }
-  .mapClue {
+  .mapClue,
+  .mapClue > img {
     min-height: 300px;
   }
   .roomBadge {

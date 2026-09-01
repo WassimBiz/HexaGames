@@ -92,11 +92,16 @@ describe('mode HexaMap', () => {
     expect(drawMapLocation(undefined, () => 0.99).mapId).toBe('twisted-treeline');
   });
 
+  it('sépare la capture en jeu de la minimap utilisée pour répondre', () => {
+    const challenge = drawMapLocation(undefined, () => 0.1);
+    expect(challenge.clueImageUrl).toContain('nexus.leagueoflegends.com');
+    expect(challenge.clueImageUrl).not.toBe(challenge.imageUrl);
+    expect(challenge.imageUrl).toContain('ddragon.leagueoflegends.com');
+  });
+
   it('attribue 1000 points au bon emplacement et moins en s’éloignant', () => {
     expect(calculateMapScore({ x: 0.5, y: 0.5 }, { x: 0.5, y: 0.5 }).points).toBe(1000);
-    expect(calculateMapScore({ x: 0.5, y: 0.5 }, { x: 0.8, y: 0.8 }).points).toBeLessThan(
-      1000,
-    );
+    expect(calculateMapScore({ x: 0.5, y: 0.5 }, { x: 0.8, y: 0.8 }).points).toBeLessThan(1000);
   });
 
   it('valide uniquement des balises normalisées', () => {

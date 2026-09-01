@@ -7,22 +7,38 @@ export interface MapLocation extends MapChallenge {
 const maps = {
   'summoners-rift': {
     mapName: "Faille de l'invocateur",
-    imageUrl:
-      'https://raw.communitydragon.org/latest/game/assets/maps/info/map11/2dlevelminimap_base_baron1.png',
+    imageUrl: 'https://ddragon.leagueoflegends.com/cdn/6.8.1/img/map/map11.png',
   },
   'howling-abyss': {
-    mapName: 'Abîme hurlant (ARAM)',
-    imageUrl:
-      'https://raw.communitydragon.org/14.15/game/levels/map12/info/2dlevelminimap.png',
+    mapName: 'ARAM · Abîme hurlant',
+    imageUrl: 'https://ddragon.leagueoflegends.com/cdn/6.8.1/img/map/map12.png',
   },
   'twisted-treeline': {
     mapName: 'Forêt torturée',
-    imageUrl:
-      'https://raw.communitydragon.org/9.22/game/levels/map10/info/2dlevelminimap.png',
+    imageUrl: 'https://ddragon.leagueoflegends.com/cdn/6.8.1/img/map/map10.png',
   },
 } as const;
 
 type MapId = keyof typeof maps;
+
+const riotCaptures = {
+  infernalDragonPit:
+    'https://nexus.leagueoflegends.com/wp-content/uploads/2019/12/07_SRX_Infernal_Pit_bwrjyy1fii43le7mwcre.jpg',
+  oceanRedBuff:
+    'https://nexus.leagueoflegends.com/wp-content/uploads/2019/12/09_SRX_OceanRedBuff_uf3k2l64c3utw2wyk3vp.png',
+  midLane:
+    'https://nexus.leagueoflegends.com/wp-content/uploads/2018/11/MinionsFighting_e12c7fqpsi0sw8t6hyt0.png',
+  midTurret:
+    'https://nexus.leagueoflegends.com/wp-content/uploads/2009/10/turret_destruction_sbc1q5g9gks4k3he2tul.jpg',
+  orderJungle:
+    'https://nexus.leagueoflegends.com/wp-content/uploads/2019/12/10_Infernal_Order_Jungle_elgd7mvvfjb2lpenf4np.jpg',
+  botAlcove:
+    'https://nexus.leagueoflegends.com/wp-content/uploads/2019/12/08_SRE_Alcoves_cpnhnuvd7gobhdrstf82.jpg',
+  aramBridge:
+    'https://nexus.leagueoflegends.com/wp-content/uploads/2019/03/01_Butcher_s_Bridge_nrfazkihqt25pbif08mb.png',
+  twistedTreeline:
+    'https://nexus.leagueoflegends.com/wp-content/uploads/2019/07/06_Twisted_Treeline_qw5zkjtf62zew5kjxrxe.jpg',
+} as const;
 
 function location(
   mapId: MapId,
@@ -30,40 +46,89 @@ function location(
   locationName: string,
   x: number,
   y: number,
+  clueImageUrl: string,
   zoom = 3.5,
 ): MapLocation {
-  return { id, mapId, ...maps[mapId], locationName, view: { x, y, zoom } };
+  return {
+    id,
+    mapId,
+    ...maps[mapId],
+    locationName,
+    clueImageUrl,
+    view: { x, y, zoom },
+  };
 }
 
 const locations: Record<MapId, MapLocation[]> = {
   'summoners-rift': [
-    location('summoners-rift', 'sr-blue-base', 'Base bleue', 0.13, 0.84, 3.1),
-    location('summoners-rift', 'sr-red-base', 'Base rouge', 0.87, 0.16, 3.1),
-    location('summoners-rift', 'sr-baron', 'Antre du Baron Nashor', 0.39, 0.27, 4.1),
-    location('summoners-rift', 'sr-dragon', 'Fosse du dragon', 0.62, 0.72, 4.1),
-    location('summoners-rift', 'sr-blue-top', 'Buff bleu supérieur', 0.57, 0.3, 4.2),
-    location('summoners-rift', 'sr-blue-bottom', 'Buff bleu inférieur', 0.42, 0.7, 4.2),
-    location('summoners-rift', 'sr-red-top', 'Buff rouge supérieur', 0.72, 0.43, 4.2),
-    location('summoners-rift', 'sr-red-bottom', 'Buff rouge inférieur', 0.28, 0.57, 4.2),
-    location('summoners-rift', 'sr-top-river', 'Rivière supérieure', 0.42, 0.37, 4.4),
-    location('summoners-rift', 'sr-bot-river', 'Rivière inférieure', 0.58, 0.63, 4.4),
-    location('summoners-rift', 'sr-mid', 'Voie du milieu', 0.5, 0.5, 4.5),
-    location('summoners-rift', 'sr-top-lane', 'Voie du haut', 0.25, 0.28, 4),
-    location('summoners-rift', 'sr-bot-lane', 'Voie du bas', 0.75, 0.72, 4),
+    location(
+      'summoners-rift',
+      'sr-dragon-infernal',
+      'Fosse du dragon',
+      0.62,
+      0.72,
+      riotCaptures.infernalDragonPit,
+      4.1,
+    ),
+    location(
+      'summoners-rift',
+      'sr-red-bottom',
+      'Buff rouge inférieur',
+      0.28,
+      0.57,
+      riotCaptures.oceanRedBuff,
+      4.2,
+    ),
+    location('summoners-rift', 'sr-mid', 'Voie du milieu', 0.5, 0.5, riotCaptures.midLane, 4.5),
+    location(
+      'summoners-rift',
+      'sr-mid-turret',
+      'Tourelle de la voie du milieu',
+      0.56,
+      0.44,
+      riotCaptures.midTurret,
+      4.2,
+    ),
+    location(
+      'summoners-rift',
+      'sr-order-jungle',
+      'Jungle inférieure',
+      0.34,
+      0.66,
+      riotCaptures.orderJungle,
+      4.2,
+    ),
+    location(
+      'summoners-rift',
+      'sr-bot-alcove',
+      'Alcôve de la voie du bas',
+      0.83,
+      0.82,
+      riotCaptures.botAlcove,
+      4.4,
+    ),
   ],
   'howling-abyss': [
-    location('howling-abyss', 'ha-blue-base', 'Base bleue', 0.16, 0.84, 3),
-    location('howling-abyss', 'ha-blue-bridge', 'Entrée bleue du pont', 0.31, 0.69, 4.2),
-    location('howling-abyss', 'ha-center', 'Centre du pont', 0.5, 0.5, 4.6),
-    location('howling-abyss', 'ha-red-bridge', 'Entrée rouge du pont', 0.69, 0.31, 4.2),
-    location('howling-abyss', 'ha-red-base', 'Base rouge', 0.84, 0.16, 3),
+    location(
+      'howling-abyss',
+      'ha-center',
+      'Centre du pont',
+      0.5,
+      0.5,
+      riotCaptures.aramBridge,
+      4.6,
+    ),
   ],
   'twisted-treeline': [
-    location('twisted-treeline', 'tt-blue-base', 'Base bleue', 0.18, 0.78, 3.1),
-    location('twisted-treeline', 'tt-red-base', 'Base rouge', 0.82, 0.22, 3.1),
-    location('twisted-treeline', 'tt-top-altar', 'Autel supérieur', 0.5, 0.28, 4.2),
-    location('twisted-treeline', 'tt-bot-altar', 'Autel inférieur', 0.5, 0.7, 4.2),
-    location('twisted-treeline', 'tt-center', 'Centre de la forêt', 0.5, 0.5, 4.5),
+    location(
+      'twisted-treeline',
+      'tt-center',
+      'Centre de la forêt',
+      0.5,
+      0.5,
+      riotCaptures.twistedTreeline,
+      4.5,
+    ),
   ],
 };
 
@@ -75,7 +140,10 @@ export function drawMapLocation(previousId?: string, random = Math.random): MapL
   return candidates[Math.floor(random() * candidates.length)] ?? locations[mapId][0]!;
 }
 
-export function calculateMapScore(target: Point, guess: Point): { points: number; distance: number } {
+export function calculateMapScore(
+  target: Point,
+  guess: Point,
+): { points: number; distance: number } {
   const distance = Math.hypot(target.x - guess.x, target.y - guess.y);
   const closeness = Math.max(0, 1 - distance / Math.SQRT2);
   return { points: Math.round(1_000 * closeness ** 2.2), distance };

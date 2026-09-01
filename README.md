@@ -4,8 +4,12 @@ HexaGuess est un party game web multijoueur en temps réel avec trois modes sél
 lobby. Dans « Dessin mystère », un joueur choisit secrètement un champion parmi trois propositions,
 le dessine, et les autres le devinent dans le chat. Dans « Imitation vocale », il écoute au casque
 une réplique originale, découvre sa transcription cinq secondes plus tard puis l’imite à voix haute.
-Dans « HexaMap », tous les joueurs observent un cadrage fixe puis placent une balise sur la carte
+Dans « HexaMap », tous les joueurs observent une capture fixe prise depuis la caméra du jeu, puis placent une balise sur la minimap
 complète ; le score dépend de la distance au lieu attendu.
+
+Les indices HexaMap proviennent exclusivement de captures publiées par Riot Games dans ses articles
+« Your First Game », « Unleashing the Elements », « More Experimental ARAM Changes » et
+« State of Modes ». Les cartes de réponse utilisent les minimaps officielles Data Dragon.
 
 Le projet adopte une identité originale d’« atelier d’encre magique ». Il s’agit d’un projet
 communautaire indépendant, sans interface, logo ou marque graphique copiée de Riot Games ou de
@@ -152,8 +156,8 @@ de proxy et de logs, une supervision et des tests de charge.
 - certaines répliques localisées ne disposent pas encore d’une transcription écrite fiable ;
 - le canal WebRTC utilise un serveur STUN public mais pas encore de serveur TURN, donc certains
   réseaux restrictifs peuvent nécessiter un appel vocal externe ;
-- HexaMap utilise des vues 2D fixes issues des minimaps ; des captures en jeu plus détaillées
-  pourraient enrichir ultérieurement les lieux ;
+- HexaMap utilise des captures officielles de cartes publiées par Riot Games comme indices ; la
+  minimap n’apparaît que pour placer la réponse et révéler les positions ;
 - la reconnexion restaure la partie, mais un dessinateur déconnecté termine sa manche immédiatement ;
 - le protocole ne compresse pas encore les segments en lots binaires.
 

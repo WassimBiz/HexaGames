@@ -245,17 +245,14 @@ function MapStage({
         <h2>Où êtes-vous sur la carte ?</h2>
         <p>Observez les chemins, les murs et la végétation, puis placez votre marqueur.</p>
       </div>
-      <div
-        className={styles.mapClue}
-        role="img"
-        aria-label="Extrait fixe d’un lieu de League of Legends"
-        style={{
-          backgroundImage: `url(${challenge.imageUrl})`,
-          backgroundSize: `${challenge.view.zoom * 100}%`,
-          backgroundPosition: `${challenge.view.x * 100}% ${challenge.view.y * 100}%`,
-        }}
-      >
-        <span>Vue fixe</span>
+      <div className={styles.mapClue}>
+        <img
+          src={challenge.clueImageUrl}
+          alt="Vue en jeu fixe de League of Legends"
+          draggable={false}
+        />
+        <span>Vue en jeu · caméra fixe</span>
+        <small>Capture officielle Riot Games</small>
       </div>
       <div className={styles.mapGuessPanel}>
         <div>
@@ -1109,11 +1106,15 @@ function Results({
           : isMapResult
             ? `Manche ${room.round} terminée`
             : roundComplete
-            ? `Manche ${room.round} terminée`
-            : 'Tour de dessin terminé'}
+              ? `Manche ${room.round} terminée`
+              : 'Tour de dessin terminé'}
       </p>
       <h1>
-        {final ? 'Le podium de la partie' : isMapResult ? 'Le lieu était ici…' : 'Le champion était…'}
+        {final
+          ? 'Le podium de la partie'
+          : isMapResult
+            ? 'Le lieu était ici…'
+            : 'Le champion était…'}
       </h1>
       {!final && result.kind === 'champion' && (
         <div className={styles.revealCard}>

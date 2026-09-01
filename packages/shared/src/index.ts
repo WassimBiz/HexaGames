@@ -108,6 +108,7 @@ export interface MapChallenge {
   mapId: 'summoners-rift' | 'howling-abyss' | 'twisted-treeline';
   mapName: string;
   imageUrl: string;
+  clueImageUrl: string;
   view: Point & { zoom: number };
 }
 

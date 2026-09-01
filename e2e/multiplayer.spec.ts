@@ -158,6 +158,20 @@ test('deux joueurs terminent un tour d’imitation vocale', async ({ browser }) 
 test('deux joueurs placent leur balise dans HexaMap', async ({ browser }) => {
   const hostContext = await browser.newContext();
   const guestContext = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const officialCapture =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720"><rect width="1280" height="720" fill="#16233d"/></svg>';
+  await hostContext.route('https://nexus.leagueoflegends.com/**', (route) =>
+    route.fulfill({ status: 200, contentType: 'image/svg+xml', body: officialCapture }),
+  );
+  await guestContext.route('https://nexus.leagueoflegends.com/**', (route) =>
+    route.fulfill({ status: 200, contentType: 'image/svg+xml', body: officialCapture }),
+  );
+  await hostContext.route('https://ddragon.leagueoflegends.com/**', (route) =>
+    route.fulfill({ status: 200, contentType: 'image/svg+xml', body: officialCapture }),
+  );
+  await guestContext.route('https://ddragon.leagueoflegends.com/**', (route) =>
+    route.fulfill({ status: 200, contentType: 'image/svg+xml', body: officialCapture }),
+  );
   const host = await hostContext.newPage();
   const guest = await guestContext.newPage();
 
@@ -177,6 +191,12 @@ test('deux joueurs placent leur balise dans HexaMap', async ({ browser }) => {
   await expect(host.getByTestId('map-stage')).toBeVisible();
   await expect(guest.getByTestId('map-stage')).toBeVisible();
   await expect(host.getByText('Vue verrouillée · aucun déplacement')).toBeVisible();
+  const immersiveClue = host.getByTestId('map-stage').locator('img').first();
+  await expect(immersiveClue).toHaveAttribute('src', /nexus\.leagueoflegends\.com/);
+  await expect(immersiveClue).not.toHaveAttribute('src', /2dlevelminimap/i);
+  await expect
+    .poll(() => immersiveClue.evaluate((image: HTMLImageElement) => image.naturalWidth))
+    .toBeGreaterThan(0);
 
   const hostMap = host.getByRole('button', { name: /Carte de réponse/ });
   const guestMap = guest.getByRole('button', { name: /Carte de réponse/ });
